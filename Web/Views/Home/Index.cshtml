@@ -1,0 +1,26 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div id="contact-container">
+    <h3>Add new</h3>
+    <form>
+        <label for="name">
+            Name:
+            <input type="text" id="name" data-bind="value: Name"/>
+        </label>
+        <label for="email">
+            Email:
+            <input type="text" id="email" data-bind="value: Email"/>
+        </label>
+        <button type="button" data-bind="click: Create">Create</button>
+    </form>
+    
+    <h2 data-bind="visible: Contacts.length">Contacts:</h2>
+    <ul data-bind="foreach: Contacts">
+        <li data-bind="text: Name + ' - ' + Email, id: Id"></li>
+    </ul>
+</div>

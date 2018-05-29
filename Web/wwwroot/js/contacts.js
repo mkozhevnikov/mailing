@@ -36,8 +36,8 @@ var ContactViewModel = (function () {
                 type: 'POST',
                 url: 'api/Contact/Create',
                 data: JSON.stringify(contact),
-                success: function () {
-                    $this.Contacts.push(new Contact(contact));
+                success: function (data) {
+                    $this.Contacts.push(new Contact(data));
                 },
                 contentType: "application/json",
                 dataType: 'json'
@@ -48,8 +48,7 @@ var ContactViewModel = (function () {
             var $this = this, id = contact.Id;
             $.ajax({
                 type: 'DELETE',
-                url: 'api/Contact/Delete',
-                data: JSON.stringify(this),
+                url: 'api/Contact/Delete?Id=' + id,
                 success: function () {
                     var idx = $this.Contacts().indexOf(contact);
                     $this.Contacts.splice(idx, 1);

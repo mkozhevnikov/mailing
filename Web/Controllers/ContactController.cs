@@ -40,8 +40,9 @@ namespace Web.Controllers
         [Route("Delete")]
         [ProducesResponseType(typeof(bool), 202)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Delete([FromBody] Contact contact)
+        public async Task<IActionResult> Delete(long id)
         {
+            var contact = repository.Get(id);
             await repository.DeleteAsync(contact);
 
             return Ok(true);

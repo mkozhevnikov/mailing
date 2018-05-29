@@ -1,0 +1,16 @@
+{
+  "name": "mailing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server": "cd wwwroot & live-server --port=1234 --entry-file=index.html"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "jquery": "^3.3.1",
+    "live-server": "^1.2.0",
+    "underscore": "^1.9.0"
+  }
+}

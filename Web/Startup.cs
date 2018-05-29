@@ -19,6 +19,9 @@ namespace Web
         {
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());;
+
+            services.AddCors(options =>
+                options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -34,6 +37,7 @@ namespace Web
             }
 
             app.UseStaticFiles();
+            app.UseCors("AllowAll");
             app.UseMvc(routes => {
                 routes.MapRoute(name: "defaut", template: "{controller=Home}/{action=Index}/{id?}");
             });

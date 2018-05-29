@@ -16,7 +16,7 @@ var ContactViewModel = (function () {
     _.extend(ContactViewModel.prototype, {
         Load: function () {
             var $this = this;
-            $.getJSON('api/Contact/List')
+            $.getJSON('http://localhost:5000/api/Contact/List')
                 .done(function (data) {
                     var contacts = _(data).map(function (contact) {
                         return new Contact(contact);
@@ -34,7 +34,7 @@ var ContactViewModel = (function () {
             var $this = this;
             $.ajax({
                 type: 'POST',
-                url: 'api/Contact/Create',
+                url: 'http://localhost:5000/api/Contact/Create',
                 data: JSON.stringify(contact),
                 success: function () {
                     $this.Contacts.push(new Contact(contact));

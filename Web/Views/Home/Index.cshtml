@@ -21,6 +21,9 @@
     
     <h2 data-bind="visible: Contacts.length">Contacts:</h2>
     <ul data-bind="foreach: Contacts">
-        <li data-bind="text: Name + ' - ' + Email, id: Id"></li>
+        <li data-bind="id: Id">
+            <span data-bind="text: Name + ' - ' + Email"></span>
+            <a data-bind="click: function() { $parent.Delete($data) }" href="#">Delete</a>
+        </li>
     </ul>
 </div>

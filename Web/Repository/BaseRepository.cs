@@ -15,7 +15,7 @@ namespace Web.Repository
         
         public IQueryable<T> Query()
         {
-            return container.Values.AsQueryable();
+            return container.Values.Where(v => null != v).AsQueryable();
         }
 
         public T Get(long id)
@@ -49,12 +49,12 @@ namespace Web.Repository
 
         public void Delete(T entity)
         {
-            throw new System.NotImplementedException();
+            container.TryRemove(entity.Id, out entity);
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new System.NotImplementedException();
+            await Task.Run(() => Delete(entity)).ConfigureAwait(false);
         }
     }
 }

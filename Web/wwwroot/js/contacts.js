@@ -42,6 +42,21 @@ var ContactViewModel = (function () {
                 contentType: "application/json",
                 dataType: 'json'
             });
+        },
+
+        Delete: function (contact) {
+            var $this = this, id = contact.Id;
+            $.ajax({
+                type: 'DELETE',
+                url: 'api/Contact/Delete',
+                data: JSON.stringify(this),
+                success: function () {
+                    var idx = $this.Contacts().indexOf(contact);
+                    $this.Contacts.splice(idx, 1);
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            })
         }
     });
 

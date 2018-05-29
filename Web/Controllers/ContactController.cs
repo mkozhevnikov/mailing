@@ -36,6 +36,17 @@ namespace Web.Controllers
             return Ok(contact);
         }
 
+        [HttpDelete]
+        [Route("Delete")]
+        [ProducesResponseType(typeof(bool), 202)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Delete([FromBody] Contact contact)
+        {
+            await repository.DeleteAsync(contact);
+
+            return Ok(true);
+        }
+
         public ContactController(IRepository<Contact> repository)
         {
             this.repository = repository;

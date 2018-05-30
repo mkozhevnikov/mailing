@@ -16,7 +16,7 @@ var ContactViewModel = (function () {
     _.extend(ContactViewModel.prototype, {
         Load: function () {
             var $this = this;
-            $.getJSON('api/Contact/List')
+            $.getJSON('api/Contact')
                 .done(function (data) {
                     var contacts = _(data).map(function (contact) {
                         return new Contact(contact);
@@ -34,7 +34,7 @@ var ContactViewModel = (function () {
             var $this = this;
             $.ajax({
                 type: 'POST',
-                url: 'api/Contact/Create',
+                url: 'api/Contact',
                 data: JSON.stringify(contact),
                 success: function (data) {
                     $this.Contacts.push(new Contact(data));
@@ -45,10 +45,10 @@ var ContactViewModel = (function () {
         },
 
         Delete: function (contact) {
-            var $this = this, id = contact.Id;
+            var $this = this;
             $.ajax({
                 type: 'DELETE',
-                url: 'api/Contact/Delete?Id=' + id,
+                url: 'api/Contact?Id=' + contact.Id,
                 success: function () {
                     var idx = $this.Contacts().indexOf(contact);
                     $this.Contacts.splice(idx, 1);
@@ -56,6 +56,27 @@ var ContactViewModel = (function () {
                 contentType: "application/json",
                 dataType: 'json'
             })
+        },
+        
+        Edit: function (contact) {
+            var $this = this;
+            var data = {
+                Id: contact.Id, 
+                Name: this.Name(),
+                Email: this.Email()
+            };
+            $.ajax({
+                type: 'PUT',
+                url: 'api/Contact?Id=' + contact.Id,
+                data: JSON.stringify(data),
+                success: function () {
+                    var idx = $this.Contacts().indexOf(contact);
+                    $this.Contacts.splice(idx, 1);
+                    $this.Contacts.splice(0, 0, new Contact(data))
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            }); 
         }
     });
 

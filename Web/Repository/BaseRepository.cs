@@ -39,12 +39,12 @@ namespace Web.Repository
 
         public void Update(T entity)
         {
-            throw new System.NotImplementedException();
+            container.TryUpdate(entity.Id, entity, Get(entity.Id));
         }
 
-        public Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new System.NotImplementedException();
+            await Task.Run(() => Update(entity)).ConfigureAwait(false);
         }
 
         public void Delete(T entity)

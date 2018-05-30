@@ -14,7 +14,6 @@ namespace Web.Controllers
         private readonly IRepository<Contact> repository;
 
         [HttpGet]
-        [Route("List")]
         [ProducesResponseType(typeof(IEnumerable<Contact>), 200)]
         public IActionResult List()
         {
@@ -22,7 +21,6 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("Create")]
         [ProducesResponseType(typeof(Contact), 201)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Create([FromBody] Contact contact)
@@ -37,13 +35,20 @@ namespace Web.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete")]
-        [ProducesResponseType(typeof(bool), 202)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(bool), 200)]
         public async Task<IActionResult> Delete(long id)
         {
             var contact = repository.Get(id);
             await repository.DeleteAsync(contact);
+
+            return Ok(true);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<IActionResult> Update([FromBody] Contact contact)
+        {
+            await repository.UpdateAsync(contact);
 
             return Ok(true);
         }
